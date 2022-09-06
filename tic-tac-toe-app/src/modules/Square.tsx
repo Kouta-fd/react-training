@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Square: React.FC<{ value: string; onClick: () => void }> = (
+export const Square: React.FC<{ value: string | null; onClick: () => void }> = (
   props
 ) => {
   return (

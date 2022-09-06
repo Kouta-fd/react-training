@@ -2,7 +2,7 @@ import React from "react";
 import { Square } from "./Square";
 
 export const Board: React.FC<{
-  squares: string[];
+  squares: (string | null)[];
   onClick: (i: number) => void;
 }> = (props) => {
   const renderSquare = (i: number) => {
