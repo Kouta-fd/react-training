@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { calculateWinner } from "../utils/calculateWinner";
 
 export const useBoardHistory = () => {
   const [history, setHistory] = useState([
@@ -27,41 +28,26 @@ export const useBoardHistory = () => {
     setStepNumber(history.length);
     setXIsnext(!xIsNext);
   };
-  const calculateWinner = (squares: string[]) => {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if (
-        squares[a] &&
-        squares[a] === squares[b] &&
-        squares[a] === squares[c]
-      ) {
-        return squares[a];
-      }
-    }
-    return null;
-  };
 
   const jumpTo = (step: number) => {
     setStepNumber(step);
     setXIsnext(step % 2 === 0);
   };
 
+  const current = history[stepNumber];
+  const winner = calculateWinner(current.squares);
+  let status;
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next player: " + (xIsNext ? "X" : "O");
+  }
+
   return {
     history: history,
-    xIsNext: xIsNext,
-    stepNumber: stepNumber,
+    current: current,
+    status: status,
     handleClick: handleClick,
-    calculateWinner: calculateWinner,
     jumpTo: jumpTo,
   };
 };

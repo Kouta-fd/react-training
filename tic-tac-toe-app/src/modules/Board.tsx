@@ -1,10 +1,12 @@
 import React from "react";
 import { Square } from "./Square";
 
-export const Board: React.FC<{
+type board = {
   squares: (string | null)[];
   onClick: (i: number) => void;
-}> = (props) => {
+};
+
+export const Board: React.FC<board> = (props) => {
   const renderSquare = (i: number) => {
     return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
   };
